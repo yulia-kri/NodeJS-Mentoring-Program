@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-mentoring-program",
+  "version": "1.0.0",
+  "description": "Cross-country global mentoring program which aims at improving the following skills: Node.js ecosystem and connected environment; giving a strong base of the skill set required to have for a production-ready engineer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yulia-kri/NodeJS-Mentoring-Program.git"
+  },
+  "author": "Yuliya Kryvarot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yulia-kri/NodeJS-Mentoring-Program/issues"
+  },
+  "homepage": "https://github.com/yulia-kri/NodeJS-Mentoring-Program#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
