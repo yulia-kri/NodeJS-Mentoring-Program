@@ -4,7 +4,9 @@
   "description": "Cross-country global mentoring program which aims at improving the following skills: Node.js ecosystem and connected environment; giving a strong base of the skill set required to have for a production-ready engineer.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "task1": "nodemon --exec node_modules/.bin/babel-node task1.js",
+    "task2": "nodemon --exec node_modules/.bin/babel-node task2.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,14 @@
   },
   "homepage": "https://github.com/yulia-kri/NodeJS-Mentoring-Program#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/node": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "jest": "^28.0.3",
     "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
   }
 }
