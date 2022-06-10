@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { routes } from './routes';
+import { routes } from './controllers/routes';
 
 const app = express();
 const router = express.Router();
@@ -16,3 +16,5 @@ app.use(router);
 app.listen(PORT, () => {
     console.log(`the app is running on ${PORT}`);
 });
+
+// PostgreSQ.1
