@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 import { NextFunction, Request, Response } from 'express';
-import { HttpCode } from '../models/models';
+import { HttpCode } from '../models/interfaces';
 
 const errorResponse = (schemaErrors: Joi.ValidationError) => {
     const errors = schemaErrors.details.map(error => {

@@ -1,14 +1,12 @@
-import { ItemsStorage } from '../services/storage';
-import { HttpCode, User } from '../models/models';
+import { HttpCode } from '../models/interfaces';
 import { NextFunction, Request, Response } from 'express';
-import { db } from '../data-access/db';
+import { UserService } from '../services/userService';
 
-const UserModel = db.user;
-const usersStorage = new ItemsStorage<User>(UserModel);
+export const usersStorage = new UserService();
 
 export const getUserById = async (req: any, res: any) => {
     const { userId } = req.params;
-    const user = await UserModel.findByPk(userId);
+    const user = await usersStorage.findById(userId);
 
     if (user != null) {
         res.send(user);
@@ -45,8 +43,8 @@ export const deleteUser = async (req: any, res: any) => {
     const { userId } = req.params;
 
     try {
-        const user = await usersStorage.deleteItem(userId);
-        res.send(user);
+        const msg = await usersStorage.deleteItem(userId);
+        res.send(msg);
     } catch (err) {
         res.status(HttpCode.NotFound).send(err.message);
     }
@@ -56,22 +54,10 @@ export const getUsers = async (req: any, res: any) => {
     const { limit, loginSubstring } = req.query;
 
     if (limit && loginSubstring) {
-        const condition = {
-            login: db.sequelize.where(
-                db.sequelize.fn('LOWER', db.sequelize.col('login')),
-                'LIKE',
-                `%${loginSubstring.toLowerCase()}%`,
-            ),
-        };
-
-        UserModel.findAll({ where: condition }).then(users => {
-            if (users) {
-                res.json(users.slice(0, limit));
-            } else {
-                res.status(HttpCode.NotFound).end();
-            }
-        });
+        console.log(limit, loginSubstring);
+        const users = await usersStorage.getAutoSuggestUsers(limit, loginSubstring);
+        res.send(users);
     }
 
-    res.send(await usersStorage.getAllItems());
+    res.send(await usersStorage.allItems());
 };
