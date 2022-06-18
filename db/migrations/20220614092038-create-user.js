@@ -1,37 +1,36 @@
-const { DataTypes } = require('sequelize/types');
+const { DataTypes } = require('sequelize');
 module.exports = {
-    async up(queryInterface, Sequelize) {
+    async up(queryInterface) {
         await queryInterface.createTable('users', {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
+                type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
             login: {
-                type: Sequelize.STRING,
+                type: DataTypes.STRING,
                 allowNull: false,
                 unique: true,
             },
             password: {
-                type: Sequelize.STRING,
+                type: DataTypes.STRING,
                 allowNull: false,
             },
             age: {
-                type: Sequelize.INTEGER,
+                type: DataTypes.INTEGER,
                 allowNull: false,
-            },
-            is_deleted: {
-                type: Sequelize.BOOLEAN,
-                defaultValue: false,
             },
             created_at: {
                 allowNull: false,
-                type: Sequelize.DATE,
+                type: DataTypes.DATE,
             },
             updated_at: {
                 allowNull: false,
-                type: Sequelize.DATE,
+                type: DataTypes.DATE,
+            },
+            deleted_at: {
+                type: DataTypes.DATE,
             },
         });
     },

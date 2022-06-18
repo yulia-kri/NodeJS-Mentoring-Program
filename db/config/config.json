@@ -5,8 +5,14 @@
     "database": "d9ntqk10fqsgu3",
     "host": "ec2-54-228-32-29.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
-    "ssl": {
-      "rejectUnauthorized": false
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "define": {
+      "underscored": true
     }
   },
   "test": {
@@ -15,8 +21,14 @@
     "database": "d9ntqk10fqsgu3",
     "host": "ec2-54-228-32-29.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
-    "ssl": {
-      "rejectUnauthorized": false
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "define": {
+      "underscored": true
     }
   },
   "production": {
@@ -25,8 +37,14 @@
     "database": "d9ntqk10fqsgu3",
     "host": "ec2-54-228-32-29.eu-west-1.compute.amazonaws.com",
     "dialect": "postgres",
-    "ssl": {
-      "rejectUnauthorized": false
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "define": {
+      "underscored": true
     }
   }
 }

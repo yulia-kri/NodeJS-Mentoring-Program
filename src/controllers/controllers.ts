@@ -1,6 +1,7 @@
 import { HttpCode } from '../models/interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../services/userService';
+import { addPagination } from '../services/pagination';
 
 export const usersStorage = new UserService();
 
@@ -51,13 +52,13 @@ export const deleteUser = async (req: any, res: any) => {
 };
 
 export const getUsers = async (req: any, res: any) => {
-    const { limit, loginSubstring } = req.query;
+    const { limit, loginSubstring, skip } = req.query;
 
     if (limit && loginSubstring) {
-        console.log(limit, loginSubstring);
         const users = await usersStorage.getAutoSuggestUsers(limit, loginSubstring);
-        res.send(users);
+        res.send(addPagination(users, skip, limit));
     }
 
-    res.send(await usersStorage.allItems());
+    const users = await usersStorage.allItems();
+    res.send(addPagination(users, skip, limit));
 };

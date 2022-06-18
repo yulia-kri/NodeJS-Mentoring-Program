@@ -6,8 +6,7 @@ type IncomingUser = Omit<TUser, 'id' | 'isDeleted'>;
 
 export class UserService {
     public async findById(id: string) {
-        const user = await User.findByPk(id);
-        return user?.is_deleted ? null : user;
+        return await User.findByPk(id);
     }
 
     public async addItem(user: IncomingUser) {
@@ -38,26 +37,22 @@ export class UserService {
     }
 
     public async deleteItem(id: string) {
-        const user = await this.findById(id);
-        if (user) {
-            user.is_deleted = true;
-
-            await user.save();
-
-            return 'User was deleted';
+        try {
+            await User.destroy({ where: { id } });
+            return 'User was deleted.';
+        } catch (e) {
+            throw new Error('Item not found.');
         }
-        throw new Error('Item not found.');
     }
 
     public async allItems() {
-        return await User.findAll({ where: { is_deleted: false } });
+        return await User.findAll();
     }
 
     public async getAutoSuggestUsers(limit: number, loginSubstring: string) {
         return await User.findAll({
             limit,
             where: {
-                is_deleted: false,
                 login: {
                     [Op.iLike]: `%${loginSubstring}`,
                 },

@@ -1,13 +1,9 @@
-const Sequelize = require('sequelize');
+import { Sequelize } from 'sequelize';
+import * as configJson from '../../../db/config/config.json';
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(`${__dirname}/../config/config.json`)[env];
-config.define = {
-    underscored: true,
-};
+const config = configJson[env];
 
-const sequelize = config.url
-    ? new Sequelize(config.url, config)
-    : new Sequelize(config.database, config.username, config.password, config);
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 export { Sequelize, sequelize };

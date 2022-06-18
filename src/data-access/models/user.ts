@@ -3,8 +3,12 @@ import { DataTypes, Model } from 'sequelize';
 import { sequelize } from './index';
 
 export class User extends Model {
+    declare login: string;
+    declare password: string;
+    declare age: number;
+
     toJSON() {
-        return { ...this.get(), id: undefined, is_deleted: undefined, updatedAt: undefined, createdAt: undefined };
+        return { ...this.get(), deleted_at: undefined, updated_at: undefined, created_at: undefined };
     }
 }
 User.init(
@@ -17,6 +21,7 @@ User.init(
         login: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         password: {
             type: DataTypes.STRING,
@@ -26,13 +31,14 @@ User.init(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        is_deleted: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-        },
     },
     {
         sequelize,
         modelName: 'User',
+        paranoid: true,
+        timestamps: true,
+        updatedAt: 'updated_at',
+        createdAt: 'created_at',
+        deletedAt: 'deleted_at',
     },
 );

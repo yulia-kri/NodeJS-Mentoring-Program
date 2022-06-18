@@ -4,7 +4,8 @@
       "targets": {
         "node": 4
       }
-    }], "@babel/preset-typescript"],
+    }], ["@babel/preset-typescript",  { "allowDeclareFields": true }]
+  ],
   "plugins": [
     "add-module-exports"
   ]

@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon",
     "create-user-model": "npx sequelize-cli model:generate --name User --attributes login:string,password:string,age:integer,is_deleted:boolean",
-    "run-before-migration": "export PGSSLMODE=no-verify",
     "migrate": "npx sequelize-cli db:migrate",
     "create-ceed": "npx sequelize-cli seed:generate --name demo-user",
     "run-ceeds": "npx sequelize-cli db:seed:all"
@@ -35,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "babel-plugin-add-module-exports": "^1.0.4",
+    "babel-register": "^6.26.0",
     "eslint": "^8.15.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
