@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import {
+    addUsersToGroup,
     createGroup,
     createUser,
     deleteGroup,
@@ -23,4 +24,6 @@ export const routes = (router: Router) => {
     router.route('/groups').get(getGroups).post(createGroup);
 
     router.route('/groups/:uuid').get(getGroupById).put(updateGroup).delete(deleteGroup);
+
+    router.route('/usersToGroup').post(addUsersToGroup);
 };

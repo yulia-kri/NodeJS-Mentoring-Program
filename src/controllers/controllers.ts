@@ -1,10 +1,13 @@
+import { UserGroupService } from './../services/userGroupService';
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
 import { Controller } from '../models/controller';
 import { GroupService } from '../services/groupService';
+import { HttpCode } from '../models/interfaces';
 
-export const usersController = new Controller(new UserService());
-export const groupsController = new Controller(new GroupService());
+const usersController = new Controller(new UserService());
+const groupsController = new Controller(new GroupService());
+const userGroupService = new UserGroupService(new GroupService(), new UserService());
 
 export const getUserById = (req: Request, res: Response) => usersController.getById(req, res);
 export const createUser = (req: Request, res: Response) => usersController.create(req, res);
@@ -17,3 +20,13 @@ export const createGroup = (req: Request, res: Response) => groupsController.cre
 export const updateGroup = (req: Request, res: Response) => groupsController.update(req, res);
 export const deleteGroup = (req: Request, res: Response) => groupsController.delete(req, res);
 export const getGroups = (req: Request, res: Response) => groupsController.getAll(req, res);
+
+export const addUsersToGroup = async (req: Request, res: Response) => {
+    try {
+        const { groupId, userIds } = req.body;
+        const result = await userGroupService.addUsersToGroup(groupId, userIds);
+        res.send(result);
+    } catch (err) {
+        res.status(HttpCode.BadRequest).send(err.message);
+    }
+};

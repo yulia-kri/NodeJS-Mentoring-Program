@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { routes } from './controllers/routes';
+import { associate } from './data-access/associations';
 import { sequelize } from './data-access/models';
 
 const app = express();
@@ -19,4 +20,6 @@ app.listen(PORT, async () => {
 
     await sequelize.authenticate();
     console.log('database connected');
+
+    associate();
 });

@@ -1,12 +1,12 @@
-import { Model, ModelStatic } from 'sequelize';
+import { Model, ModelStatic, Transaction } from 'sequelize';
 
 import { IRepository } from './interfaces';
 
 export abstract class Repository<M extends Model, T> implements IRepository<M, T> {
     protected constructor(private model: ModelStatic<M>) {}
 
-    public async findOne(id: string) {
-        return await this.model.findByPk(id);
+    public async findOne(id: string, transaction?: { transaction: Transaction }) {
+        return await this.model.findByPk(id, transaction);
     }
 
     public async create(item: T) {
