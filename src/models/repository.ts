@@ -13,7 +13,10 @@ export abstract class Repository<M extends Model, T> implements IRepository<M, T
         return await this.model.create(item);
     }
 
-    public abstract update(id: string, updatedFields: Partial<T>): Promise<M>;
+    public async update(id: string, updatedFields: Partial<T>) {
+        const [_, item] = await this.model.update(updatedFields, { where: { id }, returning: true, plain: true });
+        return Array.isArray(item) ? item[0] : item;
+    }
 
     public async delete(id: string) {
         try {

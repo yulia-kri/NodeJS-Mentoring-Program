@@ -53,15 +53,8 @@ export class Controller<T> implements IController<T> {
     }
 
     async getAll(req: Request, res: Response) {
-        const { limit, loginSubstring, skip } = req.query as { [param: string]: string | undefined };
+        const { limit, skip } = req.query as { [param: string]: string | undefined };
 
-        let items: Model<T>[] = [];
-        if (limit && loginSubstring && typeof this.service.getAutoSuggestions === 'function') {
-            items = await this.service.getAutoSuggestions(limit, loginSubstring);
-        } else {
-            items = await this.service.find();
-        }
-
-        res.send(addPagination(items, skip, limit));
+        res.send(addPagination(await this.service.find(), skip, limit));
     }
 }

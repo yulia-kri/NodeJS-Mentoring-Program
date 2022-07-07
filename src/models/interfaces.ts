@@ -30,8 +30,13 @@ export interface IRepository<M extends Model, T> {
     delete(id: string): Promise<string>;
     find(): Promise<M[]>;
     findOne(id: string): Promise<M | null>;
-    getAutoSuggestions?(limit: string, loginSubstring: string): Promise<M[]>;
 }
+
+export interface IUserRepository<M extends Model, T> extends IRepository<M, T> {
+    getAutoSuggestions(limit: string, loginSubstring: string): Promise<M[]>;
+}
+
+export interface IGroupRepository<M extends Model, T> extends IRepository<M, T> {}
 
 type Middleware = (req: Request, res: Response, next?: NextFunction) => void | Promise<void>;
 
