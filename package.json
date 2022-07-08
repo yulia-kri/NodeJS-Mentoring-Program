@@ -4,7 +4,11 @@
   "description": "Cross-country global mentoring program which aims at improving the following skills: Node.js ecosystem and connected environment; giving a strong base of the skill set required to have for a production-ready engineer.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "create-user-model": "npx sequelize-cli model:generate --name User --attributes login:string,password:string,age:integer,is_deleted:boolean",
+    "migrate": "npx sequelize-cli db:migrate",
+    "create-ceed": "npx sequelize-cli seed:generate --name demo-user",
+    "run-ceeds": "npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -29,15 +33,23 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "babel-register": "^6.26.0",
     "eslint": "^8.15.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
+    "sequelize-cli": "^6.4.1",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@babel/register": "^7.17.7",
     "express": "^4.18.1",
     "joi": "^17.6.0",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.20.1",
     "uuid": "^8.3.2"
   }
 }

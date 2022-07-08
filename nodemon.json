@@ -1,4 +1,11 @@
 {
+  "env": {
+    "DB_HOST": "ec2-54-228-32-29.eu-west-1.compute.amazonaws.com",
+    "DB_NAME": "d9ntqk10fqsgu3",
+    "DB_PORT": "5432",
+    "DB_USER": "bnieqnvrrhxoxg",
+    "DB_PASS": "3deb8357c63a0993c03d8b04399c14b9ea94a68b3aa47b804c1b12e95d930f60"
+},
   "ignore": [
     "node_modules"
   ],
