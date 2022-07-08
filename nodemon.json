@@ -1,5 +1,6 @@
 {
   "env": {
+    "NODE_ENV": "development",
     "DB_HOST": "ec2-54-228-32-29.eu-west-1.compute.amazonaws.com",
     "DB_NAME": "d9ntqk10fqsgu3",
     "DB_PORT": "5432",
