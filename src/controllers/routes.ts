@@ -1,18 +1,29 @@
 import { Router } from 'express';
 
-import { createUser, deleteUser, getUserById, getUsers, updateUser } from './controllers';
-import { validateSchema } from '../services/validation';
-import { createUserSchema, updateUserSchema } from '../models/schema';
+import {
+    addUsersToGroup,
+    createGroup,
+    createUser,
+    deleteGroup,
+    deleteUser,
+    getGroupById,
+    getGroups,
+    getUserById,
+    getUsers,
+    updateGroup,
+    updateUser,
+} from './controllers';
+import { validateSchema } from '../validation/validation';
+import { createUserSchema, updateUserSchema } from '../validation/schema';
 
 export const routes = (router: Router) => {
-    router.route('/user').post(validateSchema(createUserSchema), createUser);
+    router.route('/users').get(getUsers).post(validateSchema(createUserSchema), createUser);
 
-    router.route('/users').get(getUsers);
+    router.route('/users/:uuid').get(getUserById).put(validateSchema(updateUserSchema), updateUser).delete(deleteUser);
 
-    router
-        .route('/user/:userId')
-        .get(getUserById)
-        .post(validateSchema(createUserSchema), createUser)
-        .put(validateSchema(updateUserSchema), updateUser)
-        .delete(deleteUser);
+    router.route('/groups').get(getGroups).post(createGroup);
+
+    router.route('/groups/:uuid').get(getGroupById).put(updateGroup).delete(deleteGroup);
+
+    router.route('/usersToGroup').post(addUsersToGroup);
 };

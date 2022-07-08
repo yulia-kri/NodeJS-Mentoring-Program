@@ -3,6 +3,7 @@ import { DataTypes, Model } from 'sequelize';
 import { sequelize } from './index';
 
 export class User extends Model {
+    declare id: string;
     declare login: string;
     declare password: string;
     declare age: number;
