@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import { routes } from './controllers/routes';
 import { associate } from './data-access/associations';
@@ -12,7 +13,7 @@ const PORT = 3000;
 routes(router);
 
 app.use(express.json());
-
+app.use(cors());
 app.use(router);
 
 app.listen(PORT, async () => {

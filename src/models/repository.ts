@@ -5,8 +5,12 @@ import { IRepository } from './interfaces';
 export abstract class Repository<M extends Model, T> implements IRepository<M, T> {
     protected constructor(private model: ModelStatic<M>) {}
 
-    public async findOne(id: string, transaction?: { transaction: Transaction }) {
+    public async findById(id: string, transaction?: { transaction: Transaction }) {
         return await this.model.findByPk(id, transaction);
+    }
+
+    public async findOne(field: string, value: string = '') {
+        return await this.model.findOne({ where: { [field]: value } });
     }
 
     public async create(item: T) {

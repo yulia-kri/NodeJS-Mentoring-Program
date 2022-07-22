@@ -1,14 +1,20 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 import { UserGroupService } from './../services/userGroupService';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { UserService } from '../services/userService';
 import { Controller } from '../models/controller';
 import { GroupService } from '../services/groupService';
 import { HttpCode } from '../models/interfaces';
 import { addPagination } from '../helpers/pagination';
 
-const usersController = new Controller(new UserService());
-const groupsController = new Controller(new GroupService());
-const userGroupService = new UserGroupService(new GroupService(), new UserService());
+const userService = new UserService();
+const groupService = new GroupService();
+
+const usersController = new Controller(userService);
+const groupsController = new Controller(groupService);
+const userGroupService = new UserGroupService(groupService, userService);
 
 const getAllUsersWithAutoSuggestion = async (req: Request, res: Response) => {
     const { limit, loginSubstring, skip } = req.query as { [param: string]: string | undefined };
@@ -41,4 +47,37 @@ export const addUsersToGroup = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(HttpCode.BadRequest).send(err.message);
     }
+};
+
+export const login = async (req: Request, res: Response) => {
+    const { login: name, password } = req.body;
+
+    const user = await userService.findOne('login', name);
+
+    if (user == null || password == null) {
+        return res.status(HttpCode.BadRequest).send('Invalid credentials');
+    }
+
+    try {
+        if (await bcrypt.compare(password, user.password)) {
+            const accessToken = jwt.sign({ name }, process.env.ACCESS_TOKEN_SECRET || '', { expiresIn: '10d' });
+            res.send({ accessToken });
+        } else {
+            res.status(HttpCode.BadRequest).send('Invalid credentials');
+        }
+    } catch (err) {
+        res.status(HttpCode.BadRequest).send(err.message);
+    }
+};
+
+export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+    const bearerHeader = req.headers.authorization;
+    const token = bearerHeader?.split(' ')[1];
+
+    if (token == null) return res.sendStatus(HttpCode.Unauthorized);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET || '', err => {
+        if (err) return res.sendStatus(HttpCode.Forbidden);
+        next();
+    });
 };
