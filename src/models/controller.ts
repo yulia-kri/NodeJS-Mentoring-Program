@@ -8,7 +8,7 @@ export class Controller<T> implements IController<T> {
     constructor(public service: IRepository<Model, T>) {}
 
     async create(req: Request, res: Response) {
-        const newFields = req.body;
+        const newFields: T = req.body;
 
         try {
             const user = await this.service.create(newFields);
@@ -43,7 +43,7 @@ export class Controller<T> implements IController<T> {
 
     async getById(req: Request, res: Response) {
         const { uuid } = req.params;
-        const item = await this.service.findOne(uuid);
+        const item = await this.service.findById(uuid);
 
         if (item != null) {
             res.send(item);
