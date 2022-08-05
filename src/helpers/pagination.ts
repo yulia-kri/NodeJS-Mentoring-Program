@@ -1,6 +1,6 @@
 export const addPagination = (items: any[], startFrom?: string, limit?: string) => {
-    const skip = Number(startFrom) ?? 0;
-    const perPage = Number(limit) ?? items.length;
+    const skip = startFrom ? Number(startFrom) : 0;
+    const perPage = limit ? Number(limit) : items.length;
 
     return {
         data: items.slice(skip, perPage),
