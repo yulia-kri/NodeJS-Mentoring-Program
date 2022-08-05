@@ -21,6 +21,8 @@ export type Group = {
 export enum HttpCode {
     OK = 200,
     BadRequest = 400,
+    Unauthorized = 401,
+    Forbidden = 403,
     NotFound = 404,
 }
 
@@ -29,7 +31,8 @@ export interface IRepository<M extends Model, T> {
     update(id: string, item: Partial<T>): Promise<M>;
     delete(id: string): Promise<string>;
     find(): Promise<M[]>;
-    findOne(id: string): Promise<M | null>;
+    findOne(field: string, value: string): Promise<M | null>;
+    findById(id: string): Promise<M | null>;
 }
 
 export interface IUserRepository<M extends Model, T> extends IRepository<M, T> {

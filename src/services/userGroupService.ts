@@ -14,9 +14,9 @@ export class UserGroupService {
     public async addUsersToGroup(groupId: string, userIds: string[]) {
         try {
             return await this.sequelize.transaction(async (t: Transaction) => {
-                const group = await this.groupService.findOne(groupId, { transaction: t });
+                const group = await this.groupService.findById(groupId, { transaction: t });
                 const users = await Promise.all(
-                    userIds.map(async userId => await this.userService.findOne(userId, { transaction: t })),
+                    userIds.map(async userId => await this.userService.findById(userId, { transaction: t })),
                 );
 
                 if (group && users.length && !users.some(user => user == null)) {

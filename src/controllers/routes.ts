@@ -10,8 +10,10 @@ import {
     getGroups,
     getUserById,
     getUsers,
+    login,
     updateGroup,
     updateUser,
+    verifyToken,
 } from './controllers';
 import { validateSchema } from '../validation/validation';
 import { createUserSchema, updateUserSchema } from '../validation/schema';
@@ -25,5 +27,7 @@ export const routes = (router: Router) => {
 
     router.route('/groups/:uuid').get(getGroupById).put(updateGroup).delete(deleteGroup);
 
-    router.route('/usersToGroup').post(addUsersToGroup);
+    router.route('/usersToGroup').post(verifyToken, addUsersToGroup);
+
+    router.route('/login').post(login);
 };

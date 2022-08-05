@@ -4,7 +4,8 @@
     "DB_NAME": "d9ntqk10fqsgu3",
     "DB_PORT": "5432",
     "DB_USER": "bnieqnvrrhxoxg",
-    "DB_PASS": "3deb8357c63a0993c03d8b04399c14b9ea94a68b3aa47b804c1b12e95d930f60"
+    "DB_PASS": "3deb8357c63a0993c03d8b04399c14b9ea94a68b3aa47b804c1b12e95d930f60",
+    "ACCESS_TOKEN_SECRET": "c05054b8cb6fd04b9c74222a71ffc9106cf8905ac5b02e0f1bac2c741e40dd4f0b9ae7849114a971c03be57fd3f729ffc0b94e5c23ca8c16c3b4b483fd50565e"
 },
   "ignore": [
     "node_modules"
