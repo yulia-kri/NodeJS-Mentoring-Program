@@ -35,7 +35,8 @@ export const getGroups = (req: Request, res: Response) => groupsController.getAl
 
 export const addUsersToGroup = async (req: Request, res: Response) => {
     try {
-        const { groupId, userIds } = req.body;
+        const { uuid: groupId } = req.params;
+        const { userIds } = req.body;
         const result = await userGroupService.addUsersToGroup(groupId, userIds);
         res.send(result);
     } catch (err) {

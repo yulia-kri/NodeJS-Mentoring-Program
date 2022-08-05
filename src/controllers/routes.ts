@@ -25,5 +25,5 @@ export const routes = (router: Router) => {
 
     router.route('/groups/:uuid').get(getGroupById).put(updateGroup).delete(deleteGroup);
 
-    router.route('/usersToGroup').post(addUsersToGroup);
+    router.route('/groups/:uuid/users').post(addUsersToGroup);
 };
