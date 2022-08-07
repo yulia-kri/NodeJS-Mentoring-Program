@@ -12,7 +12,7 @@ export class UserService extends Repository<User, TUser> implements IUserReposit
             limit: Number(limit),
             where: {
                 login: {
-                    [Op.iLike]: `%${loginSubstring}`,
+                    [Op.iLike]: `%${loginSubstring}%`,
                 },
             },
         });
