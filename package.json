@@ -7,7 +7,6 @@
     "start": "nodemon",
     "migrate": "npx sequelize-cli db:migrate",
     "run-ceeds": "npx sequelize-cli db:seed:all",
-    "pretest": "NODE_ENV=test npm run run-ceeds",
     "test": "NODE_ENV=test jest"
   },
   "repository": {

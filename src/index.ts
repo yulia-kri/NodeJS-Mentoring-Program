@@ -23,5 +23,3 @@ app.listen(PORT, async () => {
 
     associate();
 });
-
-export default app;
