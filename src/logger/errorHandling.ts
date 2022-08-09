@@ -1,9 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 
+import { logger } from './logger';
+
 export const errorHandling = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (res.headersSent) {
-        return next(err);
+    if (!err) {
+        return next();
     }
-    res.status(500);
-    res.render('error', { error: err });
+
+    logger.error(err.message);
+    res.sendStatus(500);
 };
